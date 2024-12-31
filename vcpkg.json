@@ -1,0 +1,15 @@
+{
+    "dependencies": [
+        "gflags",
+        "glog",
+        "open62541",
+        {
+            "name": "mysql-connector-cpp",
+            "features": [
+                "jdbc"
+            ]
+        },
+        "workflow",
+        "rapidjson"
+    ]
+}
