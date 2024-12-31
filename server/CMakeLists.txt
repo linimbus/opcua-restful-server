@@ -7,7 +7,7 @@ set(EXECUTABLE_NAME "opcua-restful-server")
 set(VCPKG_INSTALLED_DIR "${CMAKE_SOURCE_DIR}/build/vcpkg_installed")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    include_directories("${CMAKE_SOURCE_DIR}/mysql/include")
+    include_directories("${CMAKE_SOURCE_DIR}/mysql/include/jdbc")
     link_directories("${CMAKE_SOURCE_DIR}/mysql/libs")
     set(DEPENDS_LIBS 
         ${VCPKG_INSTALLED_DIR}/x64-windows/lib/workflow.lib
@@ -16,6 +16,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 else()
     set(DEPENDS_LIBS
         ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libworkflow.a
+        mysqlcppconn
     )
 endif()
 

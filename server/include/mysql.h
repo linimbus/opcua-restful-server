@@ -2,10 +2,10 @@
 
 #include "types.h"
 
-#include <jdbc/cppconn/connection.h>
-#include <jdbc/cppconn/exception.h>
-#include <jdbc/cppconn/statement.h>
-#include <jdbc/mysql_driver.h>
+#include <cppconn/connection.h>
+#include <cppconn/exception.h>
+#include <cppconn/statement.h>
+#include <mysql_driver.h>
 
 struct ColumnInfo {
   std::string name;
