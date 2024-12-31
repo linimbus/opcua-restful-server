@@ -76,7 +76,11 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "*.ipp": "cpp",
-        "rope": "cpp"
+        "rope": "cpp",
+        "forward_list": "cpp",
+        "regex": "cpp",
+        "format": "cpp",
+        "future": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

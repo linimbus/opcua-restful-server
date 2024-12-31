@@ -158,10 +158,10 @@ std::string MysqlDataSave::columnString(const std::string &orginName) {
 
 bool MysqlDataSave::attachTable(const NodeInfo &dataParam) {
   TableInfo info;
-  info.tableName = escapeString(dataParam.name.c_str());
+  info.tableName = escapeString(dataParam.nodeName.c_str());
 
   //   for (size_t i = 0; i < dataParam._nodeNum; i++) {
-  //     std::string comment = escapeString(dataParam._nodes[i]._name);
+  //     std::string comment = escapeString(dataParam._nodes[i].name);
 
   //     ColumnInfo column;
   //     column.name = columnString(comment);
@@ -279,7 +279,7 @@ bool MysqlDataSave::connection() {
 bool MysqlDataSave::saveValues(const NodeInfo &dataParam,
                                const std::vector<std::string> &nodeValues) {
   try {
-    std::string tableName = escapeString(dataParam.name.c_str());
+    std::string tableName = escapeString(dataParam.nodeName.c_str());
     auto find = tables_.find(tableName);
     if (find == tables_.end()) {
       LOG(ERROR) << "SQL saveValues failed, " << tableName << " not existed";
