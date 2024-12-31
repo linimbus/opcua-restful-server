@@ -6,29 +6,31 @@ set(EXECUTABLE_NAME "opcua-restful-server")
 
 set(VCPKG_INSTALLED_DIR "${CMAKE_SOURCE_DIR}/build/vcpkg_installed")
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    include_directories("${CMAKE_SOURCE_DIR}/mysql/include")
+    link_directories("${CMAKE_SOURCE_DIR}/mysql/libs")
+    set(DEPENDS_LIBS 
+        ${VCPKG_INSTALLED_DIR}/x64-windows/lib/workflow.lib
+        "mysqlcppconn.lib" "WS2_32.lib"
+    )
+else()
+    set(DEPENDS_LIBS
+        ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libworkflow.a
+    )
+endif()
+
 add_executable(${EXECUTABLE_NAME} ${SRC_FILES})
 
 find_package(glog CONFIG REQUIRED)
 find_package(gflags CONFIG REQUIRED)
-find_package(OpenSSL REQUIRED)
 find_package(open62541 CONFIG REQUIRED)
 find_package(RapidJSON CONFIG REQUIRED)
 find_package(workflow CONFIG REQUIRED)
-find_package(unofficial-mysql-connector-cpp CONFIG REQUIRED)
 
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE
     glog::glog gflags::gflags rapidjson
     open62541::open62541
-    unofficial::mysql-connector-cpp::connector
-    unofficial::mysql-connector-cpp::connector-jdbc
-
-    ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libworkflow.a
-    ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libmysqlclient.a
-    OpenSSL::SSL OpenSSL::Crypto
-    ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libz.a
-    ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libzstd.a
-    ${VCPKG_INSTALLED_DIR}/x64-linux/lib/libncurses++.a
-    -lresolv
+    ${DEPENDS_LIBS}
 )
 
 install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin
